@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecr-nginx-deployment
+  namespace: cape
+  labels:
+    app: ecr-nginx-deployment-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecr-nginx-deployment-app
+  template:
+    metadata:
+      labels:
+        app: ecr-nginx-deployment-app
+    spec:
+      containers:
+      - name: ecr-nginx-container
+        image: 741540099531.dkr.ecr.ap-south-1.amazonaws.com/caepe-aws-reg:latest
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: sample-ecr-registry

@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-nginx-deployment
+  namespace: cape
+  labels:
+    app: gitlab-nginx-deployment-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-nginx-deployment-app
+  template:
+    metadata:
+      labels:
+        app: gitlab-nginx-deployment-app
+    spec:
+      containers:
+      - name: gitlab-nginx-container
+        image: registry.gitlab.com/cape1/caepe-gitlab-reg:nginx
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: sample-gitlab-registry

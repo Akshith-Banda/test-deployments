@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acr-nginx-deployment
+  namespace: cape
+  labels:
+    app: acr-nginx-deployment-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: acr-nginx-deployment-app
+  template:
+    metadata:
+      labels:
+        app: acr-nginx-deployment-app
+    spec:
+      containers:
+      - name: acr-nginx-container
+        image: caepeazureregistry.azurecr.io/nginx:v1
+        imagePullPolicy: Always
+      imagePullSecrets:
+        - name: sample-acr-registry
